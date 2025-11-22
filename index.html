@@ -1,13 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project-01-todo-list</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+</head>
+<body>
+  <header>
+    <h1>Todo List</h1>
+  </header>
+  <main>
+    <!-- * FORM -->
+    <section>
+      <form action="#">
+        <input type="text" name="todoTitle">
+        <button type="button">Ajouter</button>
+      </form>
+    </section>
+    <!-- * LISTE DES TODOS -->
+    <section class="todosList">
+      <ul>
+        <!-- Les todos seront ajoutés ici -->
+      </ul>
+    </section>
+  </main>
+</body>
 </html>
