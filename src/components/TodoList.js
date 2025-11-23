@@ -23,6 +23,13 @@ export class TodoList {
         document.querySelector('.add-task-form').addEventListener('submit', (e) => {
             this.onSubmit(e)
         })
+
+        document.querySelectorAll('#todosFilters button')
+            .forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    this.toggleFilter(e)
+                })
+            })
     }
 
     onSubmit(e) {
@@ -46,6 +53,28 @@ export class TodoList {
         console.log('Todos List', this.#list);
         form.reset()
     }
+
+    toggleFilter(e) {
+        const filter = e.currentTarget.getAttribute('data-filter')
+        const activeBtn = e.currentTarget.parentElement.querySelector('.active')
+        console.log(filter);
+        
+        if (activeBtn) {
+            activeBtn.classList.remove('active')
+        }
+        e.currentTarget.classList.add('active')
+
+        if (filter === 'todo') {
+            this.#list.classList.add('hide-completed')
+            this.#list.classList.remove('hide-todo')
+        } else if (filter === 'done') {
+            this.#list.classList.add('hide-todo')
+            this.#list.classList.remove('hide-completed')
+        } else {
+            this.#list.classList.remove('hide-todo')
+            this.#list.classList.remove('hide-completed')
+        }
+    }
 }
 
 class TodoListItem {
@@ -60,7 +89,7 @@ class TodoListItem {
             class: 'todo-li',
         })
         if (todo.completed) {
-            li.classList.add('completed')
+            li.classList.add('is-completed')
         }
         this.#element = li
         /* -------------------------------*/
@@ -72,9 +101,9 @@ class TodoListItem {
         })
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
-                li.classList.add('completed')
+                li.classList.add('is-completed')
             } else {
-                li.classList.remove('completed')
+                li.classList.remove('is-completed')
             }
         })
         /* -------------------------------*/

@@ -25,7 +25,7 @@ body {
 }
 
 #app {
-    max-width: 600px;
+    min-width: 600px;
     width: 100%;
     padding: 0;
 }
@@ -167,6 +167,11 @@ body {
 .todo-li.completed label {
     color: #9ca3af;
     text-decoration: line-through;
+}
+
+.hide-completed .is-completed,
+.hide-todo .todo-li:not(.is-completed) {
+    display: none!important;
 }
 
 .todo-li .task-date {
