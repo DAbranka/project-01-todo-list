@@ -31,20 +31,36 @@ class TodoListItem {
         const li = createElement('li', {
             class: 'todo-li',
         })
+        if (todo.completed) {
+            li.classList.add('completed')
+        }
         this.#element = li
         /* -------------------------------*/
         // * CHECKBOX
         const checkbox = createElement('input', {
             type: 'checkbox',
-            id
+            id,
+            checked: todo.completed || false
+        })
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+                li.classList.add('completed')
+            } else {
+                li.classList.remove('completed')
+            }
         })
         /* -------------------------------*/
-        // * LABEL
+        // * LABEL CONTAINER
+        const labelContainer = createElement('div', {
+            class: 'label-container'
+        })
         const label = createElement('label', {
-            for: '',
-            id
+            for: id
         })
         label.innerText = todo.title
+        
+        labelContainer.append(label)
+
         /* -------------------------------*/
         // * DELETE Btn
         const button = createElement('button', {
@@ -56,7 +72,7 @@ class TodoListItem {
                 this.remove(this.#element)
             })
         /* -------------------------------*/
-        li.append(checkbox, label, button)
+        li.append(checkbox, labelContainer, button)
     }
 
     get element() {
