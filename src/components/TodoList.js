@@ -69,7 +69,7 @@ export class TodoList {
     }
 
     updateTasksRemaining() {
-        if(this.onSubmit) {
+        if (this.onSubmit) {
             this.notCompletedTodos++
             this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
         }
@@ -122,13 +122,19 @@ class TodoListItem {
         })
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
-                li.classList.add('is-completed')
-                this.notCompletedTodos--
-                this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
+                li.classList.add('is-completed');
             } else {
-                li.classList.remove('is-completed')
-                this.notCompletedTodos++
-                this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
+                li.classList.remove('is-completed');
+            }
+            // Update tasks remaining in parent TodoList
+            /* This code snippet is updating the number of tasks remaining in the parent TodoList when
+            a checkbox in a TodoListItem is checked or unchecked. Here's a breakdown of what it
+            does: */
+            const todoListInstance = document.querySelector('.tasks-remaining');
+            if (todoListInstance) {
+                const list = li.parentElement;
+                const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
+                todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
             }
         })
         /* -------------------------------*/
