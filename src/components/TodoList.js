@@ -20,6 +20,10 @@ export class TodoList {
             element.append(todo.element)
         });
 
+        let tasksCount = this.#list.children.length;
+        const tasksRemaining = document.querySelector('.tasks-remaining')
+        tasksRemaining.innerText = `${tasksCount} tasks remaining`
+
         document.querySelector('.add-task-form').addEventListener('submit', (e) => {
             this.onSubmit(e)
         })
@@ -50,7 +54,7 @@ export class TodoList {
         const todoItem = new TodoListItem(newTodo)
 
         this.#list.prepend(todoItem.element)
-        console.log('Todos List', this.#list);
+        console.log('Todos List', this.#list.children.length); // * => number of list items
         form.reset()
     }
 
@@ -102,8 +106,10 @@ class TodoListItem {
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
                 li.classList.add('is-completed')
+                this.remainedTasks()
             } else {
                 li.classList.remove('is-completed')
+                this.remainedTasks()
             }
         })
         /* -------------------------------*/
@@ -123,7 +129,7 @@ class TodoListItem {
             class: 'date-span'
         })
         const now = new Date()
-        dateSpan.innerText = now.toLocaleDateString()
+        dateSpan.innerText = now.toLocaleString()
         labelContainer.append(dateSpan)
 
         /* -------------------------------*/
@@ -150,5 +156,10 @@ class TodoListItem {
 
     appendTo(element) {
         element.append(this.#element)
+    }
+
+    remainedTasks () {
+        let parent = this.#element.parentNode.childElementCount;
+        console.log(parent);
     }
 }

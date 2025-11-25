@@ -9,3 +9,4 @@ console.log(todos)
 const ul = document.querySelector('.todosList ul')
 const list = new TodoList(todos)
 list.appendTo(ul)
+console.log(list.todos);
