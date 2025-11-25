@@ -6,6 +6,7 @@ export class TodoList {
     #list
     #todosCount
     tasksRemaining
+    tasksDone
     notCompletedTodos
 
     constructor(todos) {
@@ -24,6 +25,7 @@ export class TodoList {
         });
 
         this.tasksRemaining = document.querySelector('.tasks-remaining')
+        this.tasksDone = document.querySelector('.tasks-completed')
         this.#todosCount = this.#list.children.length
         this.notCompletedTodos = Array.from(this.#list.children).filter(li => !li.classList.contains('is-completed')).length
         // const notCompletedTodos = todosCount.length - Array.from(this.#list.children).filter(li => li.classList.contains('is-completed')).length
@@ -32,6 +34,7 @@ export class TodoList {
         console.log('Not Completed Amount', this.notCompletedTodos);
         console.log('Completed Amount', completedTodos);
         this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
+        this.tasksDone.innerText = `${completedTodos} tasks completed`
 
         document.querySelector('.add-task-form').addEventListener('submit', (e) => {
             this.onSubmit(e)
@@ -135,6 +138,13 @@ class TodoListItem {
                 const list = li.parentElement;
                 const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
                 todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
+            }
+
+            this.tasksDone = document.querySelector('.tasks-completed')
+            if (this.tasksDone) {
+                const list = li.parentElement;
+                const completedTodos = Array.from(list.children).filter(li => li.classList.contains('is-completed')).length;
+                this.tasksDone.innerText = `${completedTodos} tasks completed`;
             }
         })
         /* -------------------------------*/
