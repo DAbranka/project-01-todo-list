@@ -117,6 +117,14 @@ class TodoListItem {
         label.innerText = todo.title
 
         labelContainer.append(label)
+        /* -------------------------------*/
+        // * Date
+        const dateSpan = createElement('span', {
+            class: 'date-span'
+        })
+        const now = new Date()
+        dateSpan.innerText = now.toLocaleDateString()
+        labelContainer.append(dateSpan)
 
         /* -------------------------------*/
         // * DELETE Btn
