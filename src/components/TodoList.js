@@ -4,6 +4,9 @@ export class TodoList {
 
     #todos = []
     #list
+    #todosCount
+    tasksRemaining
+    notCompletedTodos
 
     constructor(todos) {
         this.#todos = todos;
@@ -14,18 +17,25 @@ export class TodoList {
     }
 
     appendTo(element) {
-        this.#list = document.querySelector('.todosList ul')
+        this.#list = element
         this.#todos.forEach(e => {
             const todo = new TodoListItem(e)
-            element.append(todo.element)
+            this.#list.append(todo.element)
         });
 
-        let tasksCount = this.#list.children.length;
-        const tasksRemaining = document.querySelector('.tasks-remaining')
-        tasksRemaining.innerText = `${tasksCount} tasks remaining`
+        this.tasksRemaining = document.querySelector('.tasks-remaining')
+        this.#todosCount = this.#list.children.length
+        this.notCompletedTodos = Array.from(this.#list.children).filter(li => !li.classList.contains('is-completed')).length
+        // const notCompletedTodos = todosCount.length - Array.from(this.#list.children).filter(li => li.classList.contains('is-completed')).length
+        const completedTodos = this.#todosCount - this.notCompletedTodos
+        console.log('All Todos Amount', this.#todosCount);
+        console.log('Not Completed Amount', this.notCompletedTodos);
+        console.log('Completed Amount', completedTodos);
+        this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
 
         document.querySelector('.add-task-form').addEventListener('submit', (e) => {
             this.onSubmit(e)
+            this.updateTasksRemaining()
         })
 
         document.querySelectorAll('#todosFilters button')
@@ -54,15 +64,22 @@ export class TodoList {
         const todoItem = new TodoListItem(newTodo)
 
         this.#list.prepend(todoItem.element)
-        console.log('Todos List', this.#list.children.length); // * => number of list items
+        console.log('Todos List', ++this.#todosCount); // * => number of list items
         form.reset()
+    }
+
+    updateTasksRemaining() {
+        if(this.onSubmit) {
+            this.notCompletedTodos++
+            this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
+        }
     }
 
     toggleFilter(e) {
         const filter = e.currentTarget.getAttribute('data-filter')
         const activeBtn = e.currentTarget.parentElement.querySelector('.active')
         console.log(filter);
-        
+
         if (activeBtn) {
             activeBtn.classList.remove('active')
         }
@@ -106,10 +123,12 @@ class TodoListItem {
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
                 li.classList.add('is-completed')
-                this.remainedTasks()
+                this.notCompletedTodos--
+                this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
             } else {
                 li.classList.remove('is-completed')
-                this.remainedTasks()
+                this.notCompletedTodos++
+                this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
             }
         })
         /* -------------------------------*/
@@ -156,10 +175,5 @@ class TodoListItem {
 
     appendTo(element) {
         element.append(this.#element)
-    }
-
-    remainedTasks () {
-        let parent = this.#element.parentNode.childElementCount;
-        console.log(parent);
     }
 }
