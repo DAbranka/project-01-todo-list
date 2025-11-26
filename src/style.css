@@ -33,6 +33,7 @@ body {
 /* Header */
 .app-header {
     margin-bottom: 2rem;
+    text-transform: uppercase;
 }
 
 .app-header h1 {
@@ -121,6 +122,10 @@ body {
 /* Todo List */
 .todosList {
     margin-bottom: 2rem;
+}
+
+.todosList-scroll {
+    margin-top: 1rem;
 }
 
 .todosList ul {
