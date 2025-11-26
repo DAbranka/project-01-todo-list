@@ -175,7 +175,21 @@ class TodoListItem {
         button.innerHTML = 'delete'
         button
             .addEventListener('click', () => {
-                this.remove(this.#element)
+                const todoListInstance = document.querySelector('.tasks-remaining');
+                if (todoListInstance) {
+                    const list = li.parentElement;
+                    this.remove(this.#element)
+                    const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
+                    todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
+                }
+
+                this.tasksDone = document.querySelector('.tasks-completed')
+                if (this.tasksDone) {
+                    const list = li.parentElement;
+                    this.remove(this.#element)
+                    const completedTodos = Array.from(list.children).filter(li => li.classList.contains('is-completed')).length;
+                    this.tasksDone.innerText = `${completedTodos} tasks completed`;
+                }
             })
         /* -------------------------------*/
         li.append(checkbox, labelContainer, button)
