@@ -71,11 +71,13 @@ export class TodoList {
         form.reset()
     }
 
+    // set amountOfNotCompletedTasks(value) {
+    //     this.notCompletedTodos = value
+    // }
+
     updateTasksRemaining() {
-        if (this.onSubmit) {
-            this.notCompletedTodos++
-            this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
-        }
+        this.notCompletedTodos = Array.from(this.#list.children).filter(li => !li.classList.contains('is-completed')).length
+        this.tasksRemaining.innerText = `${this.notCompletedTodos} tasks remaining`
     }
 
     toggleFilter(e) {
@@ -175,18 +177,17 @@ class TodoListItem {
         button.innerHTML = 'delete'
         button
             .addEventListener('click', () => {
+                const list = li.parentElement;
+                this.remove(this.#element)
+
                 const todoListInstance = document.querySelector('.tasks-remaining');
                 if (todoListInstance) {
-                    const list = li.parentElement;
-                    this.remove(this.#element)
                     const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
                     todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
                 }
 
                 this.tasksDone = document.querySelector('.tasks-completed')
                 if (this.tasksDone) {
-                    const list = li.parentElement;
-                    this.remove(this.#element)
                     const completedTodos = Array.from(list.children).filter(li => li.classList.contains('is-completed')).length;
                     this.tasksDone.innerText = `${completedTodos} tasks completed`;
                 }
