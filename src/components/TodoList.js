@@ -69,6 +69,11 @@ export class TodoList {
         this.#list.prepend(todoItem.element)
         console.log('Todos List', ++this.#todosCount); // * => number of list items
         form.reset()
+
+        // Appliquer l'animation fadeIn à la nouvelle tâche
+        setTimeout(() => {
+            todoItem.element.classList.add('fade-in')
+        }, 10)
     }
 
     // set amountOfNotCompletedTasks(value) {
@@ -90,6 +95,7 @@ export class TodoList {
         }
         e.currentTarget.classList.add('active')
 
+        // Appliquer les classes de filtrage
         if (filter === 'todo') {
             this.#list.classList.add('hide-completed')
             this.#list.classList.remove('hide-todo')
@@ -100,6 +106,28 @@ export class TodoList {
             this.#list.classList.remove('hide-todo')
             this.#list.classList.remove('hide-completed')
         }
+
+        // Retirer toutes les classes fade-in existantes
+        Array.from(this.#list.children).forEach(item => {
+            item.classList.remove('fade-in')
+        })
+
+        // Ajouter l'animation fadeIn aux éléments visibles après un court délai
+        setTimeout(() => {
+            const visibleItems = Array.from(this.#list.children).filter(li => {
+                if (filter === 'todo') {
+                    return !li.classList.contains('is-completed')
+                } else if (filter === 'done') {
+                    return li.classList.contains('is-completed')
+                } else {
+                    return true
+                }
+            })
+
+            visibleItems.forEach(item => {
+                item.classList.add('fade-in')
+            })
+        }, 10)
     }
 }
 
@@ -178,19 +206,26 @@ class TodoListItem {
         button
             .addEventListener('click', () => {
                 const list = li.parentElement;
-                this.remove(this.#element)
+                
+                // Appliquer l'animation fadeOut à l'élément supprimé
+                li.classList.add('fade-out')
+                
+                // Attendre la fin de l'animation avant de supprimer l'élément
+                setTimeout(() => {
+                    this.remove(this.#element)
 
-                const todoListInstance = document.querySelector('.tasks-remaining');
-                if (todoListInstance) {
-                    const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
-                    todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
-                }
+                    const todoListInstance = document.querySelector('.tasks-remaining');
+                    if (todoListInstance) {
+                        const notCompletedTodos = Array.from(list.children).filter(li => !li.classList.contains('is-completed')).length;
+                        todoListInstance.innerText = `${notCompletedTodos} tasks remaining`;
+                    }
 
-                this.tasksDone = document.querySelector('.tasks-completed')
-                if (this.tasksDone) {
-                    const completedTodos = Array.from(list.children).filter(li => li.classList.contains('is-completed')).length;
-                    this.tasksDone.innerText = `${completedTodos} tasks completed`;
-                }
+                    this.tasksDone = document.querySelector('.tasks-completed')
+                    if (this.tasksDone) {
+                        const completedTodos = Array.from(list.children).filter(li => li.classList.contains('is-completed')).length;
+                        this.tasksDone.innerText = `${completedTodos} tasks completed`;
+                    }
+                }, 400) // Durée de l'animation fadeOut (0.4s)
             })
         /* -------------------------------*/
         li.append(checkbox, labelContainer, button)
