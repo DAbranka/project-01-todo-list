@@ -2,6 +2,8 @@
 
 A simple todo list application built as a junior developer exercise to practice fundamental web development skills.
 
+**[Live Demo](https://project-01-todo-list.vercel.app/)**
+
 ## Technologies Used
 
 - **HTML5** - Semantic markup structure
