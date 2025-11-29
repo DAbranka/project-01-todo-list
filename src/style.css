@@ -1,6 +1,10 @@
 :root {
-    --bg-color: oklch(0.145 0 0);
-    --secondary-bg-color: oklch(0.269 0 0);
+    --black: #02030b;
+    --white: #e6e7fa;
+    --primary: #9496e7;
+    --secondary: #881e5e;
+    --secondary-dark: #2a1e887c;
+    --accent: #d64551de;
 }
 
 * {
@@ -12,8 +16,8 @@
 html, body {
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: var(--bg-color);
-    color: #ffffff;
+    background-color: var(--black);
+    color: var(--white);
 }
 
 body {
@@ -39,13 +43,13 @@ body {
 .app-header h1 {
     font-size: 2.5rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--white);
     margin-bottom: 0.5rem;
 }
 
 .app-header .subtitle {
     font-size: 1rem;
-    color: #9ca3af;
+    color: var(--accent);
     font-weight: 400;
 }
 
@@ -59,8 +63,8 @@ body {
 #todosFilters button {
     padding: 0.5rem 1rem;
     border: none;
-    background-color: var(--secondary-bg-color);
-    color: #ffffff;
+    background-color: var(--secondary-dark);
+    color: var(--white);
     cursor: pointer;
     border-radius: 0.5rem;
     font-size: 0.875rem;
@@ -73,8 +77,8 @@ body {
 }
 
 #todosFilters button.active {
-    background-color: #ffffff;
-    color: var(--secondary-bg-color);
+    background-color: var(--white);
+    color: var(--black);
 }
 
 /* Add Task Form */
@@ -87,10 +91,10 @@ body {
 .add-task-form input {
     flex: 1;
     padding: 0.75rem 1rem;
-    background-color: var(--secondary-bg-color);
+    background-color: var(--black);
     border: 1px solid #374151;
     border-radius: 0.5rem;
-    color: #ffffff;
+    color: var(--white);
     font-size: 0.875rem;
     outline: none;
 }
@@ -105,7 +109,7 @@ body {
 
 .add-button {
     padding: 0.75rem 1.5rem;
-    background-color: #ffffff;
+    background-color: var(--white);
     border: 1px solid #1f2937;
     border-radius: 0.5rem;
     color: #1f2937;
@@ -116,7 +120,8 @@ body {
 }
 
 .add-button:hover {
-    background-color: #f3f4f6;
+    background-color: var(--accent);
+    color: var(--white);
 }
 
 /* Todo List */
@@ -140,7 +145,7 @@ body {
     align-items: flex-start;
     gap: 0.75rem;
     padding: 1rem;
-    background-color: var(--secondary-bg-color);
+    background-color: var(--secondary-dark);
     border-radius: 0.5rem;
     margin: 0;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -182,7 +187,7 @@ body {
     height: 1.25rem;
     margin-top: 0.125rem;
     cursor: pointer;
-    accent-color: #ffffff;
+    accent-color: var(--white);
     flex-shrink: 0;
     border-radius: 0.25rem;
 }
@@ -194,7 +199,7 @@ body {
 }
 
 .todo-li label {
-    color: #ffffff;
+    color: var(--white);
     font-size: 0.875rem;
     font-weight: 400;
     cursor: pointer;
@@ -243,7 +248,7 @@ body {
 }
 
 .todo-li button:hover {
-    color: #ffffff;
+    color: var(--white);
 }
 
 /* Footer */
