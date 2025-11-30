@@ -104,7 +104,8 @@ body {
 }
 
 .add-task-form input:focus {
-    border-color: #4b5563;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(148, 150, 231, 0.2);
 }
 
 .add-button {
@@ -148,16 +149,21 @@ body {
     background-color: var(--secondary-dark);
     border-radius: 0.5rem;
     margin: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
+    transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
+.todo-li:hover {
+    background-color: rgba(42, 30, 136, 0.6);
+}
+
+/* Animations */
 .todo-li.fade-in {
-    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .todo-li.fade-out {
-    animation: fadeOut 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes fadeIn {
@@ -187,9 +193,37 @@ body {
     height: 1.25rem;
     margin-top: 0.125rem;
     cursor: pointer;
-    accent-color: var(--white);
     flex-shrink: 0;
-    border-radius: 0.25rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background-color: transparent;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.todo-li input[type="checkbox"]:hover {
+    transform: scale(1.1);
+    border-color: var(--primary);
+}
+
+.todo-li input[type="checkbox"]:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.todo-li input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
 }
 
 .todo-li .label-container {
@@ -204,27 +238,39 @@ body {
     font-weight: 400;
     cursor: pointer;
     line-height: 1.5;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
-.todo-li.completed label {
+.todo-li.is-completed {
+    opacity: 0.6;
+    background-color: rgba(42, 30, 136, 0.17);
+}
+
+.todo-li.is-completed label {
     color: #9ca3af;
     text-decoration: line-through;
 }
 
-.hide-completed .is-completed,
+.todo-li.is-completed .date-span {
+    opacity: 0.5;
+}
+
+.todo-li.is-completed input[type="checkbox"] {
+    opacity: 0.8;
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Filtrage des todos */
+.hide-completed .is-completed {
+    display: none !important;
+}
+
 .hide-todo .todo-li:not(.is-completed) {
-    display: none!important;
+    display: none !important;
 }
 
-.date-span {
-    display: block;
-    font-size: 0.75rem;
-    color: #9ca3af;
-    margin-top: 0.25rem;
-    font-weight: 400;
-}
-
-.todo-li .task-date {
+.todo-li .date-span {
     display: block;
     font-size: 0.75rem;
     color: #9ca3af;
@@ -240,7 +286,8 @@ body {
     cursor: pointer;
     font-size: 0.75rem;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    text-transform: lowercase;
 }
 
 .todo-li:hover button {
@@ -248,7 +295,12 @@ body {
 }
 
 .todo-li button:hover {
-    color: var(--accent)
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+.todo-li button:active {
+    transform: scale(0.95);
 }
 
 /* Footer */
@@ -256,6 +308,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding-top: 1rem;
+    margin-top: 1rem;
     border-top: 1px solid #1f2937;
     font-size: 0.875rem;
     color: #9ca3af;
@@ -264,4 +317,13 @@ body {
 .app-footer .tasks-remaining,
 .app-footer .tasks-completed {
     font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.app-footer .tasks-remaining {
+    color: var(--white);
+}
+
+.app-footer .tasks-completed {
+    color: var(--primary);
 }
