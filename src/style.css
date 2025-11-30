@@ -4,7 +4,7 @@
     --primary: #9496e7;
     --secondary: #881e5e;
     --secondary-dark: #2a1e887c;
-    --accent: #d64551de;
+    --accent: #ff3b4b;
 }
 
 * {
@@ -73,7 +73,7 @@ body {
 }
 
 #todosFilters button:hover {
-    background-color: #374151;
+    background-color: var(--accent);
 }
 
 #todosFilters button.active {
@@ -248,7 +248,7 @@ body {
 }
 
 .todo-li button:hover {
-    color: var(--white);
+    color: var(--accent)
 }
 
 /* Footer */
