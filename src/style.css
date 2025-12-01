@@ -31,6 +31,7 @@ body {
 #app {
     min-width: 600px;
     width: 100%;
+    max-width: 800px;
     padding: 0;
 }
 
@@ -326,4 +327,113 @@ body {
 
 .app-footer .tasks-completed {
     color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    #app {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .app-header .subtitle {
+        font-size: 0.875rem;
+    }
+
+    #todosFilters {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    #todosFilters button {
+        flex: 1;
+        min-width: calc(33.333% - 0.334rem);
+        font-size: 0.8125rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .add-task-form {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .add-button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+    }
+
+    .todo-li {
+        padding: 0.875rem;
+        gap: 0.5rem;
+    }
+
+    .todo-li label {
+        font-size: 0.8125rem;
+    }
+
+    .todo-li .date-span {
+        font-size: 0.6875rem;
+    }
+
+    .app-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.75rem;
+    }
+
+    .app-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .app-header h1 {
+        font-size: 1.75rem;
+    }
+
+    #todosFilters button {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .add-task-form input {
+        font-size: 0.8125rem;
+        padding: 0.625rem 0.875rem;
+    }
+
+    .add-button {
+        font-size: 0.8125rem;
+        padding: 0.625rem 1rem;
+    }
+
+    .todo-li {
+        padding: 0.75rem;
+    }
+
+    .todo-li input[type="checkbox"] {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+
+    .todo-li input[type="checkbox"]:checked::after {
+        font-size: 0.6875rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #app {
+        max-width: 700px;
+    }
 }
