@@ -101,6 +101,17 @@ export class TodoList {
         }
     }
 
+    shouldAnimateOnStatusChange(isCompleted) {
+        // Vérifier le filtre actif pour déterminer si l'animation doit être appliquée
+        const isFilterTodo = this.#list.classList.contains('hide-completed')
+        const isFilterDone = this.#list.classList.contains('hide-todo')
+        
+        // Retourner true si :
+        // - On est dans l'onglet "Todo" et la todo vient d'être complétée
+        // - On est dans l'onglet "Done" et la todo vient d'être décochée
+        return (isFilterTodo && isCompleted) || (isFilterDone && !isCompleted)
+    }
+
     #updateCounters() {
         if (!this.#tasksRemaining || !this.#tasksDone) {
             return
@@ -220,6 +231,19 @@ class TodoListItem {
             this.#element.classList.add('is-completed')
         } else {
             this.#element.classList.remove('is-completed')
+        }
+        
+        // Vérifier si l'animation doit être appliquée
+        const shouldAnimate = this.#todoList.shouldAnimateOnStatusChange(isCompleted)
+        
+        if (shouldAnimate) {
+            // Appliquer l'animation fade-out
+            this.#element.classList.add('fade-out')
+            
+            // Retirer la classe fade-out après l'animation pour permettre au filtre de fonctionner
+            setTimeout(() => {
+                this.#element.classList.remove('fade-out')
+            }, 400) // Durée de l'animation fadeOut (0.4s)
         }
         
         // Mettre à jour le statut dans le parent TodoList

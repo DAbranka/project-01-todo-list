@@ -262,11 +262,11 @@ body {
 }
 
 /* Filtrage des todos */
-.hide-completed .is-completed {
+.hide-completed .todo-li.is-completed:not(.fade-out) {
     display: none !important;
 }
 
-.hide-todo .todo-li:not(.is-completed) {
+.hide-todo .todo-li:not(.is-completed):not(.fade-out) {
     display: none !important;
 }
 
