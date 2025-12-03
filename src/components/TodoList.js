@@ -59,7 +59,13 @@ export class TodoList {
             ?.toString()
             .trim()
         
-        if (!title) {
+        // Validation : titre non vide et longueur maximale
+        const MAX_TITLE_LENGTH = 500
+        if (!title || title.length === 0) {
+            return
+        }
+        if (title.length > MAX_TITLE_LENGTH) {
+            alert(`Le titre ne peut pas dépasser ${MAX_TITLE_LENGTH} caractères.`)
             return
         }
 
@@ -217,7 +223,7 @@ class TodoListItem {
         const button = createElement('button', {
             type: 'button',
         })
-        button.innerHTML = 'delete'
+        button.textContent = 'delete'
         button.addEventListener('click', () => {
             this.#handleDelete()
         })
