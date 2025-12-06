@@ -39,7 +39,20 @@ function validateTodos(data) {
 }
 
 try {
-    const todos = await fetchJSON('https://jsonplaceholder.typicode.com/todos/?_limit=5')
+    // const todos = await fetchJSON('https://jsonplaceholder.typicode.com/todos/?_limit=5')
+    const todosInLocalStorage = localStorage.getItem('todos')
+    let todos = []
+    if (todosInLocalStorage) {
+        try {
+            console.log('Todos found in localStorage');
+            todos = JSON.parse(todosInLocalStorage);
+        } catch (parseError) {
+            console.error('Erreur lors du parsing des todos du localStorage:', parseError);
+            // Si les données sont corrompues, on les supprime
+            localStorage.removeItem('todos');
+            todos = [];
+        }
+    }
     const validTodos = validateTodos(todos)
     
     console.log(`${validTodos.length} todos valides chargés sur ${todos.length}`)

@@ -81,6 +81,8 @@ export class TodoList {
         // Créer et ajouter l'élément DOM
         const todoItem = new TodoListItem(newTodo, this)
         this.#list.prepend(todoItem.element)
+
+        this.onUpdate()
         form.reset()
 
         // Appliquer l'animation fadeIn
@@ -92,11 +94,17 @@ export class TodoList {
         this.#updateCounters()
     }
 
+    onUpdate() {
+        localStorage.setItem('todos', JSON.stringify(this.#todos))
+    }
+
     removeTodo(todoId) {
         // Retirer du tableau
         this.#todos = this.#todos.filter(todo => todo.id !== todoId)
         // Mettre à jour les compteurs
         this.#updateCounters()
+        // Sauvegarder dans localStorage
+        this.onUpdate()
     }
 
     updateTodoStatus(todoId, completed) {
@@ -104,6 +112,8 @@ export class TodoList {
         if (todo) {
             todo.completed = completed
             this.#updateCounters()
+            // Sauvegarder dans localStorage
+            this.onUpdate()
         }
     }
 
