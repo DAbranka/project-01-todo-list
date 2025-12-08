@@ -44,8 +44,11 @@ try {
     let todos = []
     if (todosInLocalStorage) {
         try {
-            console.log('Todos found in localStorage');
+            console.group('Todos found in localStorage');
+            console.log('Parsing todos from localStorage:');
             todos = JSON.parse(todosInLocalStorage);
+            console.table(todos);
+            console.groupEnd();
         } catch (parseError) {
             console.error('Erreur lors du parsing des todos du localStorage:', parseError);
             // Si les données sont corrompues, on les supprime
